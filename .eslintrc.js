@@ -1,6 +1,3 @@
-const OFF = 0;
-const WARN = 1;
-const ERROR = 2;
 module.exports = {
   env: {
     browser: true,
@@ -10,10 +7,7 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'airbnb',
-    'airbnb/hooks',
-    'plugin:@typescript-eslint/recommended',
   ],
-  parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -23,25 +17,7 @@ module.exports = {
   },
   plugins: [
     'react',
-    '@typescript-eslint',
   ],
   rules: {
-    // 'import/extensions': [
-    //   ERROR,
-    //   'ignorePackages',
-    //   {
-    //     ts: 'never',
-    //     tsx: 'never',
-    //     json: 'never',
-    //     js: 'never',
-    //   },
-    // ],
-  },
-  settings: {
-    'import/resolver': {
-      node: {
-        extensions: ['.tsx', '.ts', '.js', '.json'],
-      },
-    },
   },
 };
