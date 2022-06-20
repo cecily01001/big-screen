@@ -72,7 +72,6 @@ const LeftPage = () => {
       handlerId: monitor.getHandlerId(),
     }),
   }));
-  const opacity = isDragging ? 0.4 : 1;
 
   return (
     <div className="component">

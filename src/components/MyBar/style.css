@@ -1,0 +1,8 @@
+.center_container {
+  height: 400px;
+  width: 400px;
+}
+.center_container .chart {
+  height: 300px;
+  width: 100%;
+}
