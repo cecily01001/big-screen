@@ -1,28 +1,28 @@
+/* eslint-disable arrow-body-style */
 /* eslint-disable react/function-component-definition */
-import React from 'react';
-import { useDrag } from 'react-dnd';
+import React, {
+  useCallback, useEffect, useRef, useState,
+} from 'react';
+import update from 'immutability-helper';
+import { useDrop } from 'react-dnd';
+import * as echarts from 'echarts';
+import './style.less';
 
-const style = {
-  position: 'absolute',
-  border: '1px dashed gray',
-  backgroundColor: 'white',
-  padding: '0.5rem 1rem',
-  cursor: 'move',
-};
 const MyBar = (props) => {
-  const [{ isDragging }, drag] = useDrag(
-    () => ({
-      type: 'leftEle',
-      item: { props.id, props.left, props.top },
-      collect: (monitor) => ({
-        isDragging: monitor.isDragging(),
-      }),
-    }),
-    [id, left, top],
-  );
-  if (isDragging && hideSourceOnDrag) {
-    return <div ref={drag} />;
-  }
+  // const [{ isDragging }, drag] = useDrag(
+  //   () => ({
+  //     type: 'leftEle',
+  //     item: { id: props.id, left: props.left, top: props.top },
+  //     collect: (monitor) => ({
+  //       isDragging: monitor.isDragging(),
+  //     }),
+  //   }),
+  //   [id, left, top],
+  // );
+  // if (isDragging && hideSourceOnDrag) {
+  //   return <div ref={drag} />;
+  // }
+  const [options, setOptions] = useState(null);
   return (
     <div
       className="box"

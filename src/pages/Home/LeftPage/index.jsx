@@ -7,6 +7,7 @@ import React, { useRef } from 'react';
 import './style.less';
 import bar from '../../../assets/images/bar.png';
 import line from '../../../assets/images/line.png';
+import LeftPicture from '../../../components/LeftPictuer';
 
 // const style = {
 //   border: '1px dashed gray',
@@ -75,14 +76,10 @@ const LeftPage = () => {
 
   return (
     <div className="component">
-
-      <div className="every_element" ref={drag} style={{ opacity }} data-testid="box">
-        <img src={bar} alt="" />
-        <img src={line} alt="" />
-        
-      </div>
+      <LeftPicture type={bar} />
+      <LeftPicture type={line} />
     </div>
   );
 };
 
-export default L
+export default LeftPage;

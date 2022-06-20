@@ -10,7 +10,6 @@ function LeftPicture(props) {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'leftEle',
     item: {
-      name: props.type,
       options: {
         legend: {
           data: [
@@ -64,7 +63,9 @@ function LeftPicture(props) {
   const opacity = isDragging ? 0.4 : 1;
 
   return (
-    <div className="every_element" ref={drag} style={{ opacity }} data-testid="box" />
+    <div className="every_element" ref={drag} style={{ opacity }} data-testid="box">
+      <img src={props.type} alt="" />
+    </div>
   );
 }
 

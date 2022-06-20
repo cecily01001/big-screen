@@ -10,8 +10,12 @@ import './style.less';
 function CenterPage(props) {
   const [options, setOptions] = useState(null);
   const [boxes, setBoxes] = useState({
-    a: { top: 20, left: 80, title: 'Drag me around' },
-    b: { top: 180, left: 20, title: 'Drag me too' },
+    a: {
+      id: 1, top: 20, left: 80,
+    },
+    b: {
+      id: 2, top: 180, left: 20,
+    },
   });
 
   const moveBox = useCallback(
@@ -28,14 +32,15 @@ function CenterPage(props) {
   );
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
-    accept: 'leftEle',
+    accept: ['leftEle', 'trueEle'],
     drop: (item, monitor) => {
       const delta = monitor.getDifferenceFromInitialOffset();
       const left = Math.round(monitor.getInitialClientOffset().x + delta.x);
       const top = Math.round(monitor.getInitialClientOffset().y + delta.y);
-      moveBox(item.id, left, top);
+      console.log(left);
+      // moveBox(item.id, left, top);
       setOptions(item.options);
-      return undefined;
+      return {};
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
