@@ -5,22 +5,12 @@
 import { useDrag } from 'react-dnd';
 import React, { useRef } from 'react';
 import './style.less';
-import bar from '../../../assets/images/bar.png';
-import line from '../../../assets/images/line.png';
 
-// const style = {
-//   border: '1px dashed gray',
-//   backgroundColor: 'white',
-//   padding: '0.5rem 1rem',
-//   marginRight: '1.5rem',
-//   marginBottom: '1.5rem',
-//   cursor: 'move',
-// };
-const LeftPage = () => {
+function LeftPicture(props) {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: 'leftEle',
     item: {
-      name: '柱状图',
+      name: props.type,
       options: {
         legend: {
           data: [
@@ -74,15 +64,8 @@ const LeftPage = () => {
   const opacity = isDragging ? 0.4 : 1;
 
   return (
-    <div className="component">
-
-      <div className="every_element" ref={drag} style={{ opacity }} data-testid="box">
-        <img src={bar} alt="" />
-        <img src={line} alt="" />
-        
-      </div>
-    </div>
+    <div className="every_element" ref={drag} style={{ opacity }} data-testid="box" />
   );
-};
+}
 
-export default L
+export default LeftPicture;
