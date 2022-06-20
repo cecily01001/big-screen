@@ -66,21 +66,18 @@ const MyBar = (props) => {
   //     handlerId: monitor.getHandlerId(),
   //   }),
   // }));
-
-  const [options, setOptions] = useState(props.options);
   const chartRef = useRef();
 
   useEffect(() => {
-    console.log(props);
-    if (chartRef.current && options) {
+    if (chartRef.current && props.options) {
       const chartInstance = echarts.init(chartRef.current);
-      chartInstance.setOption(options);
+      chartInstance.setOption(props.options);
     }
-  }, []);
+  });
 
   const left = props.left;
   const top = props.top;
-  console.log(options);
+
   return (
     <div
       className="center_container"
@@ -90,7 +87,6 @@ const MyBar = (props) => {
     >
       <div className="chart" ref={chartRef} />
     </div>
-
   );
 };
 export default MyBar;

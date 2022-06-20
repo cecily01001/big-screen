@@ -8,8 +8,9 @@ import './style.less';
 
 function LeftPicture(props) {
   const [{ isDragging }, drag] = useDrag(() => ({
-    type: 'leftEle',
+    type: props.name,
     item: {
+      id: 'a',
       options: {
         legend: {
           data: [

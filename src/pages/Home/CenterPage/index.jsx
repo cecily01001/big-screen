@@ -30,18 +30,20 @@ function CenterPage(props) {
   );
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
-    accept: ['leftEle', 'trueEle'],
+    accept: ['ele1'],
     drop: (item, monitor) => {
-      const delta = monitor.getDifferenceFromInitialOffset();
-      const left = Math.round(monitor.getInitialClientOffset().x + delta.x);
-      const top = Math.round(monitor.getInitialClientOffset().y + delta.y);
-      console.log(left);
-      boxes.a.left = left;
-      boxes.a.top = top;
-      console.log(boxes);
-      // moveBox(item.id, left, top);
+      // const delta = monitor.getDifferenceFromInitialOffset();
+      // const left = Math.round(monitor.getInitialClientOffset().x + delta.x);
+      // const top = Math.round(monitor.getInitialClientOffset().y + delta.y);
+      const left = Math.round(monitor.getClientOffset().x);
+      const top = Math.round(monitor.getClientOffset().y);
+      setBoxes({
+        a: {
+          id: 1, top, left,
+        },
+      });
       setOptions(item.options);
-      return {};
+      return undefined;
     },
     collect: (monitor) => ({
       isOver: monitor.isOver(),
@@ -65,7 +67,7 @@ function CenterPage(props) {
       {isActive ? 'Release to drop' : 'Drag a box here'}
       {/* <div className="center_container" ref={chartRef} /> */}
       {Object.keys(boxes).map((key) => {
-        const { left, top, title } = boxes[key];
+        const { left, top } = boxes[key];
         return (
           <MyBar
             key={key}
@@ -73,9 +75,7 @@ function CenterPage(props) {
             left={left}
             top={top}
             options={options}
-          >
-            {title}
-          </MyBar>
+          />
         );
       })}
     </div>
