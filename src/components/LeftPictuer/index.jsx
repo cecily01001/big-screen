@@ -11,7 +11,7 @@ const LeftPicture = (props) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: props.name,
     item: {
-      id: nanoid(),
+      id: undefined,
       options: {
         legend: {
           data: [
