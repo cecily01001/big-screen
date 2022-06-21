@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable no-unused-vars */
 import React, {
   useCallback, useEffect, useRef, useState,
@@ -6,15 +7,12 @@ import update from 'immutability-helper';
 import { useDrop } from 'react-dnd';
 import * as echarts from 'echarts';
 import './style.less';
+import { nanoid } from 'nanoid';
 import MyBar from '../../../components/MyBar';
 
 function CenterPage(props) {
-  const [options, setOptions] = useState(null);
-  const [boxes, setBoxes] = useState({
-    a: {
-      id: 1, top: 20, left: 80,
-    },
-  });
+  // const [options, setOptions] = useState(null);
+  const [boxes, setBoxes] = useState({});
 
   const moveBox = useCallback(
     (id, left, top) => {
@@ -30,19 +28,17 @@ function CenterPage(props) {
   );
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
-    accept: ['ele1'],
+    accept: ['ele-bar', 'ele-line'],
     drop: (item, monitor) => {
-      // const delta = monitor.getDifferenceFromInitialOffset();
-      // const left = Math.round(monitor.getInitialClientOffset().x + delta.x);
-      // const top = Math.round(monitor.getInitialClientOffset().y + delta.y);
       const left = Math.round(monitor.getClientOffset().x);
       const top = Math.round(monitor.getClientOffset().y);
-      setBoxes({
-        a: {
-          id: 1, top, left,
-        },
-      });
-      setOptions(item.options);
+      const id = nanoid();
+      const tempBoxs = boxes;
+      tempBoxs[id] = {
+        top, left, options: item.options,
+      };
+      setBoxes(tempBoxs);
+      // setOptions(item.options);
       return undefined;
     },
     collect: (monitor) => ({
@@ -67,7 +63,7 @@ function CenterPage(props) {
       {isActive ? 'Release to drop' : 'Drag a box here'}
       {/* <div className="center_container" ref={chartRef} /> */}
       {Object.keys(boxes).map((key) => {
-        const { left, top } = boxes[key];
+        const { left, top, options } = boxes[key];
         return (
           <MyBar
             key={key}

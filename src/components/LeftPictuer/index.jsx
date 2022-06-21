@@ -5,12 +5,13 @@
 import { useDrag } from 'react-dnd';
 import React, { useRef } from 'react';
 import './style.less';
+import { nanoid } from 'nanoid';
 
-function LeftPicture(props) {
+const LeftPicture = (props) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: props.name,
     item: {
-      id: 'a',
+      id: nanoid(),
       options: {
         legend: {
           data: [
@@ -47,7 +48,7 @@ function LeftPicture(props) {
           {
             name: '3-11岁任务数',
             data: [150, 230, 224, 218, 135, 147, 260],
-            type: 'bar',
+            type: props.chart_type,
           },
         ],
       },
@@ -68,6 +69,6 @@ function LeftPicture(props) {
       <img src={props.type} alt="" />
     </div>
   );
-}
+};
 
 export default LeftPicture;

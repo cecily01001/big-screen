@@ -1,10 +1,11 @@
 .center_container {
   position: absolute;
-  height: 270px;
+  height: 260px;
   width: 300px;
   transform: translate(-50%, -50%);
 }
 .center_container .chart {
   height: 100%;
   width: 100%;
+  font-size: 6em;
 }

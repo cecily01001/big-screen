@@ -9,7 +9,6 @@ import './style.less';
 import bar from '../../../assets/images/bar.png';
 import line from '../../../assets/images/line.png';
 import LeftPicture from '../../../components/LeftPictuer';
-
 // const style = {
 //   border: '1px dashed gray',
 //   backgroundColor: 'white',
@@ -21,8 +20,8 @@ import LeftPicture from '../../../components/LeftPictuer';
 const LeftPage = () => {
   return (
     <div className="component">
-      <LeftPicture type={bar} name="ele1" />
-      <LeftPicture type={line} name="ele1" />
+      <LeftPicture type={bar} name="ele-bar" chart_type="bar" />
+      <LeftPicture type={line} name="ele-line" chart_type="line" />
     </div>
   );
 };
