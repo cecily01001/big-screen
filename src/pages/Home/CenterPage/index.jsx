@@ -14,27 +14,12 @@ function CenterPage(props) {
   // const [options, setOptions] = useState(null);
   const [boxes, setBoxes] = useState({});
 
-  const moveBox = useCallback(
-    (id, left, top) => {
-      setBoxes(
-        update(boxes, {
-          [id]: {
-            $merge: { left, top },
-          },
-        }),
-      );
-    },
-    [boxes, setBoxes],
-  );
-
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: ['ele-bar', 'ele-line', 'trueEle'],
     drop: (item, monitor) => {
       const left = Math.round(monitor.getClientOffset().x);
       const top = Math.round(monitor.getClientOffset().y);
-      console.log(item.id);
       const id = item.id ? item.id : nanoid();
-      console.log(id);
       const tempBoxs = boxes;
       tempBoxs[id] = {
         top, left, options: item.options,
