@@ -1,5 +1,29 @@
-body{margin:0px;}
-.main{
-    display: flex;
-    justify-content: space-between;
+// @import '~antd/dist/antd.css';
+// @import '~antd/dist/antd.dark.less';
+// @import '~antd/dist/antd.compact.less';
+@import '~antd/dist/antd.dark.css';
+@import '~antd/dist/antd.compact.css';
+body {
+  margin: 0px;
+}
+
+.main {
+  width: 100%;
+  min-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(104, 101, 101);
+
+  .left_content {
+    width: 200px;
+  }
+
+  .right_content {
+    width: 300px;
+  }
+
+  .center_content {
+    width: 100%;
+    // flex: 1;
+  }
 }
