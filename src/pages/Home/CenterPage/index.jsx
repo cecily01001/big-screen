@@ -16,7 +16,6 @@ function CenterPage(props) {
     console.log(boxes)
     let length=Object.keys(boxes).length
     if(length>0){
-      console.log('555')
       tempBoxs[formOptions.id].top = formOptions.translate_y;
       tempBoxs[formOptions.id].left = formOptions.translate_x;
       setBoxes(tempBoxs);
