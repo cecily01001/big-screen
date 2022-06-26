@@ -1,78 +1,30 @@
 @import '~antd/dist/antd.css';
 .right_content{
-    height: 100vh;
-    flex: 1;
-    background-color: #333;
-    // .tab-dark{
-        
-    //     background-color: #333;
-    //     height: 100vh;
-    //     .ant-tabs-nav-list{
-    //         margin: 0;
-    //         background-color: #333;
-            
-    //     }
-    //     .ant-tabs-tab{
-    //         background-color: #333;
-    //         color: aliceblue;
-    //         border: 1px solid #333;
-    //     }
-    //     .ant-tabs-nav{
-    //         background-color: #333;
-    //         border-bottom: 0px;
-    //     }
-    //     .ant-tabs-tab-active{
-    //         background-color: rgb(104, 101, 101);
-    //         border-bottom:0px;
-    //     }
-    //     .ant-tabs-tab-btn{
-    //         color: aliceblue;
-    //     }
-        
-    //     .ant-tabs-tabpane{
-    //         height: auto;
-            
-    //     }
-    //     .ant-tabs-content-holder{
-    //         background-color: rgb(104, 101, 101);
-    //     }
-    }
-    .card-container{
-        p {
-            margin: 0;
-            background-color: rgb(104, 101, 101);
-          }
-    } 
-      .card-container > .ant-tabs-card .ant-tabs-content {
-        background-color: rgb(104, 101, 101);
-        margin-top: -16px;
-        height: 538px;
-      }
-      .card-container > .ant-tabs-card .ant-tabs-content > .ant-tabs-tabpane {
-        background-color: rgb(104, 101, 101);
-      }
-      .card-container > .ant-tabs-card > .ant-tabs-nav::before {
-        display: none;
-      }
-      .card-container > .ant-tabs-card .ant-tabs-tab,
-      .card-container > .ant-tabs-card .ant-tabs-tab-active .ant-tabs-tab-btn{
-        color: aliceblue;
-      }
-      
-      .card-container > .ant-tabs-card .ant-tabs-tab {
-        border: 0px;
-        background: transparent;
-        border-color: transparent;
-        color: aliceblue;
-      }
-      #components-tabs-demo-card-top .code-box-demo {
-        background: #000;
-      }
-      .card-container > .ant-tabs-card .ant-tabs-content > .ant-tabs-tabpane {
-        background: rgb(104, 101, 101);
-      }
-      .card-container > .ant-tabs-card .ant-tabs-tab-active {
-        background: rgb(104, 101, 101);
-        border-color: rgb(104, 101, 101);
+  width: 100%;
+  height: 100vh;
+  // flex: 1;
+
+  .config-container {
+    box-sizing: border-box;
+    padding: 10px 6px;
+
+    .form-item {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-wrap: nowrap;
+      margin-bottom: 20px;
+
+      &-title {
+        width: 50px;
       }
 
+      &-content {
+        width: calc(100% - 50px);
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+
+  }   
+}

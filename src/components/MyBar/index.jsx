@@ -1,36 +1,37 @@
-/* eslint-disable prefer-destructuring */
-/* eslint-disable no-unused-vars */
-/* eslint-disable react/prop-types */
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable arrow-body-style */
-/* eslint-disable react/function-component-definition */
-import React, {
-  useCallback, useEffect, useRef, useState,
-} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import update from 'immutability-helper';
 import { useDrop, useDrag } from 'react-dnd';
 import * as echarts from 'echarts';
+import { useDispatch,useSelector } from 'react-redux';
+import { nanoid } from '@reduxjs/toolkit';
+import { changeRight } from '../../store/features/editorSlice';
 import './style.less';
 
-const MyBar = (props) => {
+const MyBar = props => {
   const key = props.id;
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: 'trueEle',
-    item: {
-      id: key,
-      options: props.options,
-    },
-    // end: (item, monitor) => {
-    // const dropResult = monitor.getDropResult();
-    // if (item && dropResult) {}
-    // },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-      handlerId: monitor.getHandlerId(),
-    }),
-  }));
+  
+  const [{ isDragging, handlerId, hovered, highlighted }, drag] = useDrag(
+    () => ({
+      type: 'trueEle',
+      item: {
+        id: key,
+        options: props.options
+      },
+      // end: (item, monitor) => {
+      // const dropResult = monitor.getDropResult();
+      // if (item && dropResult) {}
+      // },
+      collect: monitor => ({
+        isDragging: monitor.isDragging(),
+        handlerId: monitor.getHandlerId(),
+        hovered: monitor.getItem(),
+        highlighted: monitor.canDrag()
+      })
+    })
+  );
 
   const chartRef = useRef();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (chartRef.current && props.options) {
@@ -41,15 +42,30 @@ const MyBar = (props) => {
 
   const left = props.left;
   const top = props.top;
+  const handleClick = () => {
+    console.log('click');
+    const chartEle = getComputedStyle(chartRef.current);
+    dispatch(
+      changeRight({
+        id: key,
+        layer_name: 'test',
+        translate_x: left,
+        translate_y: top,
+        width: Number(chartEle.width.slice(0,-2)),
+        height: Number(chartEle.height.slice(0,-2)),
+        z_index: 1
+      })
+    );
+  };
 
   return (
     <div
-      className="center_container"
+      className='center_container'
       ref={drag}
       style={{ left, top }}
-      data-testid="box"
-    >
-      <div className="chart" ref={chartRef} />
+      data-testid='box'
+      onClick={handleClick}>
+      <div className='chart' ref={chartRef} />
     </div>
   );
 };

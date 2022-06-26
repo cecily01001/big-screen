@@ -8,11 +8,17 @@ import './style.less';
 
 function Home() {
   return (
-    <div className="main">
+    <div className='main'>
       <DndProvider backend={HTML5Backend}>
-        <LeftPage className="left_content" />
-        <CenterPage className="center_content" />
-        <RightPage className="right_content" />
+        <div className='left_content'>
+          <LeftPage />
+        </div>
+        <div className='center_content'>
+          <CenterPage />
+        </div>
+        <div className='right_content'>
+          <RightPage />
+        </div>
       </DndProvider>
     </div>
   );

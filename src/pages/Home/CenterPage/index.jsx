@@ -1,18 +1,27 @@
-/* eslint-disable prefer-destructuring */
-/* eslint-disable no-unused-vars */
-import React, {
-  useCallback, useEffect, useRef, useState,
-} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import update from 'immutability-helper';
 import { useDrop } from 'react-dnd';
 import * as echarts from 'echarts';
 import './style.less';
 import { nanoid } from 'nanoid';
 import MyBar from '../../../components/MyBar';
+import { useDispatch, useSelector } from 'react-redux';
 
 function CenterPage(props) {
-  // const [options, setOptions] = useState(null);
   const [boxes, setBoxes] = useState({});
+  const formOptions = useSelector(state => state.editor).formOptions;
+
+  useEffect(() => {
+    const tempBoxs = boxes;
+    console.log(boxes)
+    let length=Object.keys(boxes).length
+    if(length>0){
+      console.log('555')
+      tempBoxs[formOptions.id].top = formOptions.translate_y;
+      tempBoxs[formOptions.id].left = formOptions.translate_x;
+      setBoxes(tempBoxs);
+    }
+  }, [formOptions]);
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: ['ele-bar', 'ele-line', 'trueEle'],
@@ -22,43 +31,34 @@ function CenterPage(props) {
       const id = item.id ? item.id : nanoid();
       const tempBoxs = boxes;
       tempBoxs[id] = {
-        top, left, options: item.options,
+        top,
+        left,
+        options: item.options
       };
       setBoxes(tempBoxs);
-      // setOptions(item.options);
-      return undefined;
+      return {};
     },
-    collect: (monitor) => ({
+    collect: monitor => ({
       isOver: monitor.isOver(),
-      canDrop: monitor.canDrop(),
-    }),
+      canDrop: monitor.canDrop()
+    })
   }));
 
   const isActive = canDrop && isOver;
 
-  // const chartRef = useRef(null);
-
-  // useEffect(() => {
-  //   if (chartRef.current && options) {
-  //     const chartInstance = echarts.init(chartRef.current);
-  //     chartInstance.setOption(options);
-  //   }
-  // }, [options]);
+  const handleChartClick = (id, boxes) => {
+    console.log('box');
+    console.log(boxes[id]);
+  };
 
   return (
-    <div className="huabu" ref={drop} data-testid="dustbin">
+    <div className='huabu' ref={drop} data-testid='dustbin'>
       {isActive ? 'Release to drop' : 'Drag a box here'}
       {/* <div className="center_container" ref={chartRef} /> */}
-      {Object.keys(boxes).map((key) => {
+      {Object.keys(boxes).map(key => {
         const { left, top, options } = boxes[key];
         return (
-          <MyBar
-            key={key}
-            id={key}
-            left={left}
-            top={top}
-            options={options}
-          />
+          <MyBar key={key} id={key} left={left} top={top} options={options} />
         );
       })}
     </div>
