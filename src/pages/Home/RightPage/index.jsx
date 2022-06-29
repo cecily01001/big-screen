@@ -9,7 +9,6 @@ import { changeLeft } from '../../../store/features/editorSlice'
 
 const RightPage = () => {
   const common = useSelector(state => state.editor).common_options;
-  console.log(common);
   const dispatch = useDispatch();
 
   useEffect(() => {

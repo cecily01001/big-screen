@@ -6,19 +6,29 @@ import './style.less';
 import { nanoid } from 'nanoid';
 import MyBar from '../../../components/MyBar';
 import { useDispatch, useSelector } from 'react-redux';
+import PublicRightClick from '../../../components/PublicRightClick';
 
 function CenterPage(props) {
   const [boxes, setBoxes] = useState({});
   const formOptions = useSelector(state => state.editor).formOptions;
 
-  useEffect(() => {
-    const tempBoxs = boxes;
+  const handleDelete = (id) => {
+    let tempBoxs = boxes;
+    delete tempBoxs[id]
+    setBoxes({ ...tempBoxs })
     console.log(boxes)
-    let length=Object.keys(boxes).length
-    if(length>0){
+  }
+
+  useEffect(() => {
+    let tempBoxs = boxes;
+    console.log(boxes)
+    let length = Object.keys(boxes).length
+    if (length > 0) {
       tempBoxs[formOptions.id].top = formOptions.translate_y;
       tempBoxs[formOptions.id].left = formOptions.translate_x;
-      setBoxes(tempBoxs);
+      tempBoxs[formOptions.id].width = formOptions.width;
+      tempBoxs[formOptions.id].height = formOptions.height;
+      setBoxes({ ...tempBoxs });
     }
   }, [formOptions]);
 
@@ -28,13 +38,18 @@ function CenterPage(props) {
       const left = Math.round(monitor.getClientOffset().x);
       const top = Math.round(monitor.getClientOffset().y);
       const id = item.id ? item.id : nanoid();
-      const tempBoxs = boxes;
+
+      setBoxes({})
+      console.log('drop')
+      console.log(boxes)
+
+      let tempBoxs = boxes;
       tempBoxs[id] = {
         top,
         left,
         options: item.options
       };
-      setBoxes(tempBoxs);
+      setBoxes({...tempBoxs});
       return {};
     },
     collect: monitor => ({
@@ -44,7 +59,7 @@ function CenterPage(props) {
   }));
 
   const isActive = canDrop && isOver;
-
+  console.log(boxes)
   const handleChartClick = (id, boxes) => {
     console.log('box');
     console.log(boxes[id]);
@@ -54,10 +69,11 @@ function CenterPage(props) {
     <div className='huabu' ref={drop} data-testid='dustbin'>
       {isActive ? 'Release to drop' : 'Drag a box here'}
       {/* <div className="center_container" ref={chartRef} /> */}
+      {console.log(boxes)}
       {Object.keys(boxes).map(key => {
-        const { left, top, options } = boxes[key];
+        const { left, top, width, height, options } = boxes[key];
         return (
-          <MyBar key={key} id={key} left={left} top={top} options={options} />
+            <MyBar key={key} id={key} left={left} top={top} options={options} width={width} height={height} handleDelete={handleDelete} />
         );
       })}
     </div>

@@ -34,6 +34,7 @@ const LeftPicture = (props) => {
         ],
         tooltip: {
           trigger: 'axis',
+          show:false,
           axisPointer: {
             type: 'shadow',
           },

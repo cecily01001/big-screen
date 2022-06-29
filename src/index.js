@@ -11,6 +11,6 @@ const root = createRoot(rootElement);
 
 root.render(
   <Provider store={store}>
-    <Home />,
+    <Home />
   </Provider>
 );
