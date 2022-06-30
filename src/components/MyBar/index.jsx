@@ -15,21 +15,30 @@ const MyBar = props => {
   const top = props.top;
   const width = props.width;
   const height = props.height;
-  const chartRef = useRef();
-  const dispatch = useDispatch();
-  let chartInstance = null;
+
   // 显示/隐藏
   const [show, setShow] = useState(false);
-  // 改变位置
+  // 改变右键菜单位置
   const [styles, setStyle] = useState({
     position: 'fixed', width: '100px', height: '160px', z_index: 1
   });
+  // 选定之后的边框
+  const [border, setBorder] = useState({})
+
+  const chartRef = useRef();
+  const chartContainerRef = useRef();
   // 获得show最新值
   const showRef = useRef();
   // 右键菜单ref
   const rightClickRef = useRef();
 
-  const [{ isDragging, handlerId, hovered, highlighted }, drag] = useDrag(
+
+
+  let chartInstance = null;
+
+  const dispatch = useDispatch();
+
+  const [{ }, drag] = useDrag(
     () => ({
       type: 'trueEle',
       item: {
@@ -45,7 +54,9 @@ const MyBar = props => {
     })
   );
 
+  // echarts上面的左键点击事件
   const handleClick = () => {
+    // chart点击时传输当前设置送入redux
     const chartEle = getComputedStyle(chartRef.current);
     dispatch(
       changeRight({
@@ -58,14 +69,23 @@ const MyBar = props => {
         z_index: 1
       })
     );
+    // 点击的时候出现白色框
+    setBorder({ border: '1px solid #fff' })
   };
 
+
+  /* 
+  * -------------------------------------------------------
+  * 处理右键点击功能以及右键菜单中的功能
+  */
+  // 处理echarts上面右键点击事件
   const handleContextMenu = (event) => {
     // 屏蔽默认右键事件
     event.preventDefault();
     // 先显示才能捕捉到右键菜单Ref
     // 否则rightClickRef将为undefined
     setShow(true);
+    setBorder({ border: '1px solid #fff' })
     // 获得点击的位置
     let { clientX, clientY } = event;
     // 文档显示区的宽度
@@ -86,49 +106,29 @@ const MyBar = props => {
       left: clientX,
       top: clientY
     });
-
   };
-  // 点击事件
-  const handleOtherPlaceClick = (event) => {
-    // 聊天页面中会一直监听左键点击事件直到销毁  
-    // 如果右键菜单不出现则不做逻辑处理、避免冲突
-    if (!showRef.current) return;
-    // 点击目标不在右键菜单里则关闭菜单
-    if (event.target.parentNode !== rightClickRef.current) {
-      setShow(false)
-    }
-  };
+  // 处理右侧菜单删除功能
+  const handleDelete = () => {
+    props.handleDelete(props.id)
+  }
+  /* 
+  * 右键菜单的具体功能实现完毕
+  * ----------------------------------------------------------------------------
+  */
 
-  // 滑动关闭右键功能
-  const setShowFalse = () => {
-    // 如果右键菜单不出现则不做逻辑处理
-    // eslint-disable-next-line no-useless-return
-    if (!showRef.current) return;
-    // 滚动直接关闭
-    setShow(false)
-  };
 
+  // 渲染echarts
   useEffect(() => {
     if (chartRef.current && props.options) {
       chartInstance = echarts.init(chartRef.current);
       chartInstance.setOption(props.options);
     }
   });
-
+  // 渲染echarts的重新构图（修改长宽）
   useEffect(() => {
     chartInstance?.resize()
   }, [width, height])
 
-  useEffect(() => {
-    // document.addEventListener('contextmenu', handleContextMenu);
-    document.addEventListener('mousedown', handleOtherPlaceClick, true);
-    document.addEventListener('scroll', setShowFalse, true);
-    return () => {
-      // document.removeEventListener('contextmenu', handleContextMenu);
-      document.removeEventListener('mousedown', handleOtherPlaceClick, true);
-      document.removeEventListener('scroll', setShowFalse, true);
-    }
-  }, []);
   // 副作用: show一改变就赋值showRef新的state。
   // 因为监听事件获取不到最新的state
   // 通过ref来获取。美滋滋
@@ -136,13 +136,57 @@ const MyBar = props => {
     showRef.current = show;
   }, [show]);
 
-  const handleDelete = (event) => {
-    // event.stopPropagation()
-    console.log('delete')
-    props.handleDelete(props.id)
-  }
+  /* 
+  * --------------------------------------------------------------------------------------
+  * 全局监听事件以及其对应函数
+  */
+  // 点击非菜单组件，就会让菜单消失
+  const handleCancleMenuClick = (event) => {
+    // 聊天页面中会一直监听左键点击事件直到销毁  
+    // 如果右键菜单不出现则不做逻辑处理、避免冲突
+    if (!showRef.current) return;
+    if (event.target.parentNode !== rightClickRef.current) {
+      setShow(false)
 
-  // 渲染右键
+    }
+  };
+
+  // 点击非chart组件，让chart的白边消失
+  const handleOtherPlaceClick = (event) => {
+    if (chartContainerRef.current && getComputedStyle(chartContainerRef.current).border == '1px solid rgba(0, 0, 0, 0)') return;
+    if (event.target.parentNode !== chartContainerRef.current) {
+      setBorder({})
+    }
+  }
+  // 滑动关闭右键菜单
+  const handleScroll = () => {
+    // 如果右键菜单不出现则不做逻辑处理
+    if (!showRef.current) return;
+    // 滚动直接关闭
+    setShow(false)
+  };
+  // 全局监听
+  useEffect(() => {
+    document.addEventListener('mousedown', handleCancleMenuClick, true);
+    document.addEventListener('click', handleOtherPlaceClick, true);
+    document.addEventListener('scroll', handleScroll, true);
+    return () => {
+      document.removeEventListener('mousedown', handleOtherPlaceClick, true);
+      document.removeEventListener('click', handleOtherPlaceClick, true);
+      document.removeEventListener('scroll', handleScroll, true);
+    }
+  }, []);
+  /* 
+  * --------------------------------------------------------------------------------------
+  * 全局监听事件以及其对应函数
+  */
+
+
+
+
+
+
+  // 右鍵菜單的div
   const renderContentMenu = () => (
     <div ref={rightClickRef} className="WeChatContactsAvatarTools" style={styles} >
       <div className="rightClickItems" onClick={handleDelete}>
@@ -161,17 +205,19 @@ const MyBar = props => {
   );
 
   return (
-    <div
-      className='center_container'
-      ref={drag}
-      style={{ left, top, width, height }}
-      data-testid='box'
-      onClick={handleClick}
-      onContextMenu={handleContextMenu}>
-      <div className='chart' ref={chartRef} >
+    <div className='center_container' style={{ left, top, width, height, ...border }} ref={chartContainerRef}>
+      <div
+        ref={drag}
+        className='chart-content'
+        data-testid='box'
+        onClick={handleClick}
+        onContextMenu={handleContextMenu}>
+        <div className='chart' ref={chartRef} />
+        {/* 如果show，則渲染右键菜单组件 */}
+        {show ? renderContentMenu() : null}
       </div>
-      {show ? renderContentMenu() : null}
     </div>
+
   );
 };
 export default MyBar;

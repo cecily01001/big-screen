@@ -3,6 +3,12 @@
   height: 260px;
   width: 300px;
   transform: translate(-50%, -50%);
+  border: 1px solid transparent;
+  box-sizing: border-box;
+}
+.center_container .chart-content {
+  height: 100%;
+  width: 100%;
 }
 .center_container .chart {
   height: 100%;

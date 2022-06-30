@@ -42,16 +42,12 @@ function CenterPage() {
       const left = Math.round(monitor.getClientOffset().x);
       const top = Math.round(monitor.getClientOffset().y);
       const id = item.id ? item.id : nanoid();
-      console.log(boxes)
-      let tempBoxs = {...boxes};
-      tempBoxs[id] = {
+
+      setBoxes(Object.assign({},boxes,{[id]:{
         top,
         left,
         options: item.options
-      };
-      console.log(tempBoxs)
-      setBoxes(tempBoxs);
-      console.log(boxes)
+      }}));
       return {};
     },
     collect: monitor => ({
