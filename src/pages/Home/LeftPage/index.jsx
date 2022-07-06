@@ -1,15 +1,16 @@
-import { useDrag } from 'react-dnd';
 import React from 'react';
 import './style.less';
-import bar from '../../../assets/images/bar.png';
-import line from '../../../assets/images/line.png';
 import LeftPicture from '../../../components/LeftPictuer';
+import chartList from './data'
 
 const LeftPage = () => {
   return (
     <div className='component'>
-      <LeftPicture type={bar} name='ele-bar' chart_type='bar' />
-      <LeftPicture type={line} name='ele-line' chart_type='line' />
+      {
+        Object.keys(chartList).map((item, key) => {
+          return <LeftPicture key={key} item={chartList[item]} name='leftPicEle' />
+        })
+      }
     </div>
   );
 };

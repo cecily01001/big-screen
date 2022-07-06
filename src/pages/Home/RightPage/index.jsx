@@ -7,6 +7,8 @@ import './style.less';
 import { useEffect } from 'react';
 import { changeLeft } from '../../../store/features/editorSlice'
 
+import BarConfig from '../../../components/Charts/Bar/BarConfig';
+
 const RightPage = () => {
   const common = useSelector(state => state.editor).common_options;
   const dispatch = useDispatch();
@@ -18,10 +20,10 @@ const RightPage = () => {
     setY(common.translate_y);
     setW(common.width);
     setH(common.height);
-  }, [common]);
+  }, [{...common}]);
 
   const [layerName, setLayerName] = useState(' ');
-  const [id,setId]=useState('')
+  const [id, setId] = useState('')
   const [x, setX] = useState(0);
   const [y, setY] = useState(0);
   const [w, setW] = useState(0);
@@ -34,7 +36,7 @@ const RightPage = () => {
       case 'name':
         setLayerName(value.target.value);
         dispatch(changeLeft({
-          id:common.id,
+          id: common.id,
           layer_name: value.target.value,
           translate_x: x,
           translate_y: y,
@@ -46,7 +48,7 @@ const RightPage = () => {
       case 'x':
         setX(value);
         dispatch(changeLeft({
-          id:common.id,
+          id: common.id,
           layer_name: layerName,
           translate_x: value,
           translate_y: y,
@@ -58,7 +60,7 @@ const RightPage = () => {
       case 'y':
         setY(value);
         dispatch(changeLeft({
-          id:common.id,
+          id: common.id,
           layer_name: layerName,
           translate_x: x,
           translate_y: value,
@@ -70,7 +72,7 @@ const RightPage = () => {
       case 'w':
         setW(value);
         dispatch(changeLeft({
-          id:common.id,
+          id: common.id,
           layer_name: layerName,
           translate_x: x,
           translate_y: y,
@@ -82,7 +84,7 @@ const RightPage = () => {
       case 'h':
         setH(value);
         dispatch(changeLeft({
-          id:common.id,
+          id: common.id,
           layer_name: layerName,
           translate_x: x,
           translate_y: y,
@@ -93,7 +95,7 @@ const RightPage = () => {
         break;
     }
   };
-  
+
   return (
     <div className='right_content'>
       <div className='config-container'>
@@ -101,15 +103,15 @@ const RightPage = () => {
         <div className='form-item'>
           <div className='form-item-title'>名称</div>
           <div className='form-item-content'>
-              <Input
-                showCount
-                maxLength={20}
-                size='small'
-                value={layerName}
-                onChange={() => {
-                  onChange('name', event)
-                }}
-              />
+            <Input
+              showCount
+              maxLength={20}
+              size='small'
+              value={layerName}
+              onChange={() => {
+                onChange('name', event)
+              }}
+            />
           </div>
         </div>
         <div className='form-item'>
@@ -153,6 +155,7 @@ const RightPage = () => {
           </div>
         </div>
       </div>
+      <BarConfig />
     </div>
   );
 };

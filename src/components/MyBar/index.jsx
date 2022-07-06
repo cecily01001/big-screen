@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 import { changeRight } from '../../store/features/editorSlice';
 import './style.less';
-import PublicRightClick from '../PublicRightClick';
 
 const MyBar = props => {
 
@@ -15,6 +14,8 @@ const MyBar = props => {
   const top = props.top;
   const width = props.width;
   const height = props.height;
+  const chart = props.chart;
+  const config = props.config
 
   // 显示/隐藏
   const [show, setShow] = useState(false);
@@ -43,7 +44,8 @@ const MyBar = props => {
       type: 'trueEle',
       item: {
         id: key,
-        options: props.options
+        chart: chart,
+        config: config
       },
       collect: monitor => ({
         isDragging: monitor.isDragging(),
@@ -66,7 +68,8 @@ const MyBar = props => {
         translate_y: top,
         width: Number(chartEle.width.slice(0, -2)),
         height: Number(chartEle.height.slice(0, -2)),
-        z_index: 1
+        z_index: 1,
+        // config:config
       })
     );
     // 点击的时候出现白色框
@@ -115,19 +118,6 @@ const MyBar = props => {
   * 右键菜单的具体功能实现完毕
   * ----------------------------------------------------------------------------
   */
-
-
-  // 渲染echarts
-  useEffect(() => {
-    if (chartRef.current && props.options) {
-      chartInstance = echarts.init(chartRef.current);
-      chartInstance.setOption(props.options);
-    }
-  });
-  // 渲染echarts的重新构图（修改长宽）
-  useEffect(() => {
-    chartInstance?.resize()
-  }, [width, height])
 
   // 副作用: show一改变就赋值showRef新的state。
   // 因为监听事件获取不到最新的state
@@ -212,7 +202,9 @@ const MyBar = props => {
         data-testid='box'
         onClick={handleClick}
         onContextMenu={handleContextMenu}>
-        <div className='chart' ref={chartRef} />
+        <div className='chart' ref={chartRef} >
+          {props.children}
+        </div>
         {/* 如果show，則渲染右键菜单组件 */}
         {show ? renderContentMenu() : null}
       </div>
