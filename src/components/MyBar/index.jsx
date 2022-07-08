@@ -2,10 +2,11 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import update from 'immutability-helper';
 import { useDrop, useDrag } from 'react-dnd';
 import * as echarts from 'echarts';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
-import { changeRight } from '../../store/features/editorSlice';
+import { changeRight, clearBoxes } from '../../store/features/editorSlice';
 import './style.less';
+
 
 const MyBar = props => {
 
@@ -14,8 +15,9 @@ const MyBar = props => {
   const top = props.top;
   const width = props.width;
   const height = props.height;
-  const chart = props.chart;
-  const config = props.config
+  const chartType = props.chartType;
+  // const config = props.config;
+  const dispatch = useDispatch();
 
   // 显示/隐藏
   const [show, setShow] = useState(false);
@@ -37,15 +39,14 @@ const MyBar = props => {
 
   let chartInstance = null;
 
-  const dispatch = useDispatch();
 
   const [{ }, drag] = useDrag(
     () => ({
       type: 'trueEle',
       item: {
         id: key,
-        chart: chart,
-        config: config
+        chartType: chartType,
+        // config: config
       },
       collect: monitor => ({
         isDragging: monitor.isDragging(),
@@ -113,6 +114,12 @@ const MyBar = props => {
   // 处理右侧菜单删除功能
   const handleDelete = () => {
     props.handleDelete(props.id)
+  }
+
+  const clearAllBoxes = () => {
+    dispatch(
+      clearBoxes()
+    )
   }
   /* 
   * 右键菜单的具体功能实现完毕
@@ -182,14 +189,8 @@ const MyBar = props => {
       <div className="rightClickItems" onClick={handleDelete}>
         删除
       </div>
-      <div className="rightClickItems">
-        Mute Notifications
-      </div>
-      <div className="rightClickItems">
-        Remove
-      </div>
-      <div className="rightClickItems">
-        Clear Chat History
+      <div className="rightClickItems" onClick={clearAllBoxes}>
+        清空
       </div>
     </div>
   );

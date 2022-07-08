@@ -8,13 +8,13 @@ import Bar from '../../../components/Charts/Bar/index'
 export default
     {
         'bar': {
-            name: 'bar',
+            type: 'bar',
             img: bar,
             config: BarConfig,
             chart: Bar
         },
         'line': {
-            name: 'line',
+            type: 'line',
             img: line,
             config: LineConfig,
             chart: Line

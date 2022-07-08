@@ -1,14 +1,16 @@
 import React from 'react';
 import './style.less';
 import LeftPicture from '../../../components/LeftPictuer';
-import chartList from './data'
+import { getChartNameList } from '../../../utils'
 
 const LeftPage = () => {
+  const chartNameList = getChartNameList()
+
   return (
     <div className='component'>
       {
-        Object.keys(chartList).map((item, key) => {
-          return <LeftPicture key={key} item={chartList[item]} name='leftPicEle' />
+        chartNameList.map((item, key) => {
+          return <LeftPicture key={key} item={item} name='leftPicEle' />
         })
       }
     </div>
