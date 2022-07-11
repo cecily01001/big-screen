@@ -11,14 +11,14 @@ export const editorSlice = createSlice({
       width: 0,
       height: 0,
       z_index: 1,
-      config: null
     },
     chart_options: {
       id: '',
+      type:'',
       name: '',
       color: '',
       size: '',
-      offset: ''
+      offset: '',
     },
     boxes: {}
   },

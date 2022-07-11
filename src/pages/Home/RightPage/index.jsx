@@ -6,8 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import './style.less';
 import { useEffect } from 'react';
 import { changeLeft } from '../../../store/features/editorSlice'
-
-import BarConfig from '../../../components/Charts/Bar/BarConfig';
+import { getConfigComp } from '../../../utils/index'
 
 const RightPage = () => {
   const common = useSelector(state => state.editor).common_options;
@@ -20,7 +19,7 @@ const RightPage = () => {
     setY(common.translate_y);
     setW(common.width);
     setH(common.height);
-  }, [{...common}]);
+  }, [{ ...common }]);
 
   const [layerName, setLayerName] = useState(' ');
   const [id, setId] = useState('')
@@ -95,7 +94,7 @@ const RightPage = () => {
         break;
     }
   };
-
+  const Config = common.chartType?getConfigComp(common.chartType):X
   return (
     <div className='right_content'>
       <div className='config-container'>
@@ -155,9 +154,13 @@ const RightPage = () => {
           </div>
         </div>
       </div>
-      <BarConfig />
+
+      <Config />
     </div>
   );
 };
+function X(){
+  return <div>画布</div>
+}
 
 export default RightPage;

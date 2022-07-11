@@ -1,0 +1,12 @@
+.topbar {
+  display: flex;
+  justify-content: end;
+}
+.topbar .login {
+  margin-right: 70px;
+}
+.topbar .login img {
+  width: 40px;
+  border-radius: 50%;
+  margin: 10px;
+}

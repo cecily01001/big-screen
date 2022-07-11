@@ -1,0 +1,34 @@
+@import '~antd/dist/antd.dark.css';
+@import '~antd/dist/antd.compact.css';
+body {
+  margin: 0px;
+  height: 100%;
+}
+#root {
+  height: 100%;
+}
+.display {
+  background-color: black;
+  display: flex;
+  height: 100%;
+  min-width: 1000px;
+  justify-content: space-between;
+}
+.display .left_Menu {
+  width: 500px;
+  height: 100%;
+}
+.display .rightContent {
+  flex: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #4a4949;
+}
+.display .rightContent .topbar {
+  height: 60px;
+  width: 100%;
+  color: aliceblue;
+  background-color: #212020;
+  border-bottom: 1px solid #4a4949;
+}

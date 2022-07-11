@@ -13,7 +13,7 @@ const text = `
   it can be found as a welcome guest in many households across the world.
 `;
 
-const CommonConfig = () => {
+const CommonConfig = (props) => {
     let dispatch = useDispatch()
 
     const onChange = (key) => {
@@ -24,13 +24,13 @@ const CommonConfig = () => {
         name: '',
         color: '',
         size: '',
-        offset: ''
+        offset: '',
+        type:props.type
     })
 
     function changeEleValue(name, value) {
         title[name] = value
         setTitle({ ...title })
-        console.log(title)
         dispatch(changeChart(title))
     }
 

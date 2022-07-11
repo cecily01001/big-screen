@@ -5,12 +5,14 @@ import { createRoot } from 'react-dom/client';
 import Home from './pages/Home';
 import store from './store/index';
 import { Provider } from 'react-redux';
+import AppRouter from './router';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 
 root.render(
   <Provider store={store}>
-    <Home />
+    {/* <Home /> */}
+    <AppRouter />
   </Provider>
 );

@@ -64,6 +64,7 @@ const MyBar = props => {
     dispatch(
       changeRight({
         id: key,
+        chartType:chartType,
         layer_name: 'test',
         translate_x: left,
         translate_y: top,

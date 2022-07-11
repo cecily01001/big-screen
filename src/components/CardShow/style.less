@@ -1,0 +1,162 @@
+@borderColor: rgb(119, 116, 116);
+
+.card-single {
+    width: 21%;
+    height: 200px;
+    margin: 20px;
+    margin-right: 10px;
+    background-color: #363636;
+    border-radius: 10px;
+    border: 1px solid @borderColor;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+
+    .mac-close-spread {
+        width: 100%;
+        height: auto;
+        padding-bottom: 5px;
+
+        // .mac-btn-items {
+        //     color: transparent;
+        // }
+        // .mac-btn-items:hover{
+        //     color: #363636;
+        // }
+    }
+
+}
+
+.list-content-img {
+    width: 100%;
+
+    img {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.card-action {
+    flex: 1;
+    display: flex;
+    padding: 10px;
+    height: auto;
+    justify-content: space-between;
+
+    p {
+        color: aliceblue;
+        width: 40%;
+        height: 10%;
+    }
+
+    .card-publish {
+        width: 40%;
+        // height: 30%;
+        // padding: 3%;
+        // padding: 45%;
+        display: flex;
+        flex-wrap: nowrap;
+
+        .breath-yes {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            opacity: 0.4;
+            // overflow: hidden;
+            margin: 5px 0;
+            background: rgb(35, 138, 80);
+            animation-name: breath;
+            animation-duration: 2s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+        }
+
+        .breath-no {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            opacity: 0.1;
+            overflow: hidden;
+            background: #ff3;
+            margin: 5px 0;
+            animation-name: breath;
+            animation-duration: 2s;
+            animation-timing-function: ease-in-out;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes breath {
+            from {
+                opacity: 0.4;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+
+            to {
+                opacity: 0.4;
+            }
+        }
+
+        .card-publish-text {
+            margin-left: 6px;
+            color: aliceblue;
+            display: inline-block;
+
+        }
+    }
+
+    .card-options {
+        flex: auto;
+
+        .ant-btn-primary {
+            background-color: transparent;
+            border: 1px solid @borderColor;
+            border-radius: 10px;
+        }
+
+        transform: translateY(-10%);
+    }
+
+}
+
+.ant-popover-inner-content {
+    color: aliceblue;
+
+    img {
+        width: 30px;
+        border-radius: 50%;
+        margin-top: 4px;
+        margin-right: 10px;
+    }
+
+    .ant-divider {
+        color: rgb(245, 250, 250);
+        border-top: 1px solid rgb(164, 169, 169);
+    }
+
+    .ant-divider-horizontal {
+        margin: 3px 0;
+    }
+
+    .popover-text {
+        margin-left: 7px;
+        display: inline-block;
+    }
+}
+
+.ant-popover-arrow-content::before {
+    background-color: gray;
+}
+
+.ant-popover-inner {
+    background-color: gray;
+    border-radius: 5px;
+}
+
+.mini-pic-container {
+    width: 100%;
+    background-color: #363636;
+    padding: 10px 20%;
+}

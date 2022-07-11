@@ -1,0 +1,123 @@
+.card-single {
+  width: 21%;
+  height: 200px;
+  margin: 20px;
+  margin-right: 10px;
+  background-color: #363636;
+  border-radius: 10px;
+  border: 1px solid #777474;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+}
+.card-single .mac-close-spread {
+  width: 100%;
+  height: auto;
+  padding-bottom: 5px;
+}
+.list-content-img {
+  width: 100%;
+}
+.list-content-img img {
+  height: 100%;
+  width: 100%;
+}
+.card-action {
+  flex: 1;
+  display: flex;
+  padding: 10px;
+  height: auto;
+  justify-content: space-between;
+}
+.card-action p {
+  color: aliceblue;
+  width: 40%;
+  height: 10%;
+}
+.card-action .card-publish {
+  width: 40%;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.card-action .card-publish .breath-yes {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0.4;
+  margin: 5px 0;
+  background: #238a50;
+  animation-name: breath;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+.card-action .card-publish .breath-no {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0.1;
+  overflow: hidden;
+  background: #ff3;
+  margin: 5px 0;
+  animation-name: breath;
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+@keyframes breath {
+  from {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  to {
+    opacity: 0.4;
+  }
+}
+.card-action .card-publish .card-publish-text {
+  margin-left: 6px;
+  color: aliceblue;
+  display: inline-block;
+}
+.card-action .card-options {
+  flex: auto;
+  transform: translateY(-10%);
+}
+.card-action .card-options .ant-btn-primary {
+  background-color: transparent;
+  border: 1px solid #777474;
+  border-radius: 10px;
+}
+.ant-popover-inner-content {
+  color: aliceblue;
+}
+.ant-popover-inner-content img {
+  width: 30px;
+  border-radius: 50%;
+  margin-top: 4px;
+  margin-right: 10px;
+}
+.ant-popover-inner-content .ant-divider {
+  color: #f5fafa;
+  border-top: 1px solid #a4a9a9;
+}
+.ant-popover-inner-content .ant-divider-horizontal {
+  margin: 3px 0;
+}
+.ant-popover-inner-content .popover-text {
+  margin-left: 7px;
+  display: inline-block;
+}
+.ant-popover-arrow-content::before {
+  background-color: gray;
+}
+.ant-popover-inner {
+  background-color: gray;
+  border-radius: 5px;
+}
+.mini-pic-container {
+  width: 100%;
+  background-color: #363636;
+  padding: 10px 20%;
+}

@@ -1,8 +1,11 @@
 import React from 'react'
+import CommonConfig from '../CommonConfig'
 
 const LineConfig = () => {
   return (
-    <div>lineConfig</div>
+    <div>
+      <CommonConfig type='line' />
+    </div>
   )
 }
 
