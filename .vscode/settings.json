@@ -5,7 +5,7 @@
         "dist": true,
         "yarn.lock": true
     },
-    "editor.formatOnSave": true,
+    "editor.formatOnSave": false,
     "[javascript]": {
         "editor.defaultFormatter": "vscode.typescript-language-features"
     },
@@ -46,4 +46,6 @@
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true,
     },
+    "editor.tabSize": 2,
+    "editor.formatOnSaveMode": "modificationsIfAvailable",
 }

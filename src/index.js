@@ -6,13 +6,14 @@ import Home from './pages/Home';
 import store from './store/index';
 import { Provider } from 'react-redux';
 import AppRouter from './router';
+import './index.css'
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 
 root.render(
   <Provider store={store}>
-    {/* <Home /> */}
-    <AppRouter />
+        <Home />
+        {/* <AppRouter /> */}
   </Provider>
 );

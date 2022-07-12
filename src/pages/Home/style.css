@@ -1,0 +1,18 @@
+.main {
+  width: 100%;
+  min-width: 1000px;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.main .left_content {
+  width: 200px;
+  background-color: #232324;
+}
+.main .right_content {
+  width: 300px;
+  background-color: #232324;
+}
+.main .center_content {
+  width: calc(100% - 520px);
+}

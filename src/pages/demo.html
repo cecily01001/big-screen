@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /*   background: #161616 */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <canvas id="canvas" width="1000" height="120" />
+    </div>
+
+    <script>
+      const container = document.querySelector('.container');
+      const offsetWidth = container.offsetWidth;
+      const offsetHeight = container.offfsetHeight;
+
+      const width = offsetWidth;
+      const height = 20;
+      const backgroundColor = '#232323';
+      const textColor = '#808080';
+      const lineColor = '#dcdcdc';
+      const isHorizontal = true;
+      const zoom = 1;
+      const unit = 100;
+      const scrollPos = 0;
+
+      const canvas = document.getElementById('canvas');
+      canvas.width = offsetWidth;
+      // canvas.height = offsetHeight
+
+      const ctx = canvas.getContext('2d');
+
+      // 解决字体模糊问题
+      // 字体模糊是因为canvas是通过像素点进行绘制，让屏幕大小与屏幕分辨率不同就会出现模糊问题。可以通过获取屏幕与分辨率的比值进行比例放大。
+      const dpr = window.devicePixelRatio || 1;
+      const { width: cssWidth, height: cssHeight } = canvas.getBoundingClientRect();
+      canvas.style.width = canvas.width + 'px';
+      canvas.style.height = canvas.height + 'px';
+      canvas.width = dpr * cssWidth;
+      canvas.height = dpr * cssHeight;
+      ctx.scale(dpr, dpr);
+
+      ctx.rect(0, 0, width, height);
+      ctx.fillStyle = backgroundColor;
+      ctx.fill();
+      ctx.save();
+
+      ctx.strokeStyle = lineColor;
+      //   ctx.lineWidth = 0.5;
+      ctx.font = '9px STheiti, SimHei';
+      ctx.fillStyle = textColor; // 图形填充的颜色
+      ctx.translate(0.5, 0);
+      ctx.beginPath();
+
+      const size = isHorizontal ? width : height;
+      const zoomUnit = zoom * unit;
+      const minRange = Math.floor((scrollPos * zoom) / zoomUnit);
+      const maxRange = Math.ceil((scrollPos * zoom + size) / zoomUnit);
+      const len = maxRange - minRange;
+
+      for (let i = 0; i < len; ++i) {
+        const startPos = ((i + minRange) * unit - scrollPos) * zoom;
+
+        if (startPos >= -zoomUnit && startPos < size) {
+          const startX = isHorizontal ? startPos + 3 : width - 10;
+          const startY = isHorizontal ? height - 4 : startPos - 4;
+
+          if (isHorizontal) {
+            ctx.fillText(`${(i + minRange) * unit}`, startX, startY);
+          } else {
+            ctx.save();
+            ctx.translate(startX, startY);
+            ctx.rotate(-Math.PI / 2);
+            ctx.fillText(`${(i + minRange) * unit}`, 0, 0);
+            ctx.restore();
+          }
+        }
+
+        for (let j = 0; j < 10; ++j) {
+          const pos = startPos + (j / 10) * zoomUnit;
+
+          if (pos < 0 || pos >= size) {
+            continue;
+            // break
+          }
+          const lineSize =
+            j === 0 ? (isHorizontal ? 12 : width) : j % 5 === 0 ? 8 : 5;
+
+          const x1 = isHorizontal ? pos : width - lineSize;
+          const x2 = isHorizontal ? pos : width;
+          const y1 = isHorizontal ? lineSize : pos;
+          const y2 = isHorizontal ? 0 : pos;
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+        }
+      }
+      ctx.stroke();
+      ctx.restore();
+    </script>
+  </body>
+</html>

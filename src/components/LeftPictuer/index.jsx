@@ -1,6 +1,5 @@
 import { useDrag } from 'react-dnd';
 import React from 'react';
-import './style.less';
 
 const LeftPicture = (props) => {
   const [{ isDragging }, drag] = useDrag(() => ({

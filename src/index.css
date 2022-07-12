@@ -1,0 +1,7 @@
+@import '~antd/dist/antd.dark.css';
+
+html, body {
+  margin: 0;
+  padding: 0;
+  color: rgba(255,255,255,0.82)
+}

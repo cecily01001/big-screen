@@ -1,6 +1,6 @@
 .topbar {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 }
 .topbar .login {
   margin-right: 70px;
