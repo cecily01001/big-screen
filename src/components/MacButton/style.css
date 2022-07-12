@@ -15,4 +15,5 @@
 .mac-button .ant-btn .anticon {
   position: absolute;
   transform: translate(-50%, -50%);
+  transition: color 0.3s;
 }
