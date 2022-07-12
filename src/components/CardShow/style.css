@@ -1,6 +1,6 @@
 .card-single {
   width: 20%;
-  height: 35%;
+  height: 180px;
   margin: 20px;
   margin-right: 10px;
   background-color: #363636;
@@ -9,7 +9,6 @@
   padding: 5px;
   display: flex;
   flex-direction: column;
-  box-sizing: content-box;
 }
 .card-single .mac-close-spread {
   width: 100%;
