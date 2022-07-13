@@ -27,11 +27,26 @@
   position: absolute;
   width: 0;
   height: 0;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.8);
+  border-bottom: 0.5px dashed #51d6a9;
+}
+.ruler-container .horizontal-line .line-offset-value {
+  top: -30px;
+  left: 20px;
+  transform: rotate(-90deg);
 }
 .ruler-container .vertical-line {
   position: absolute;
   width: 0;
   height: 0;
-  border-left: 1px dashed rgba(255, 255, 255, 0.8);
+  border-left: 0.5px dashed #51d6a9;
+}
+.ruler-container .vertical-line .line-offset-value {
+  top: 20px;
+  left: 10px;
+}
+.ruler-container .line-offset-value {
+  position: absolute;
+  font-size: 12px;
+  color: #51d6a9;
+  cursor: default;
 }

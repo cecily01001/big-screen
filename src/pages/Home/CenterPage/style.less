@@ -1,13 +1,13 @@
-.huabu{
-    height: 100%;
-    // width: 800px;
-    width: 100%;
-    background-color: #222;
-    color: rgb(254, 252, 252);
-    text-align: center;
-    font-size: 1rem;
-    line-height: normal;
-    // margin: 20px;
+.huabu {
+  height: 100%;
+  // width: 800px;
+  width: 100%;
+  background-color: #222;
+  color: rgb(254, 252, 252);
+  text-align: center;
+  font-size: 1rem;
+  line-height: normal;
+  // margin: 20px;
 }
 
 .ruler-container {
@@ -34,15 +34,31 @@
     position: absolute;
     width: 0;
     height: 0;
-    border-bottom: 1px dashed rgba(255, 255, 255, .8);
-    // transform: translateY(200px);
+    border-bottom: .5px dashed #51d6a9;
+
+    .line-offset-value {
+      top: -30px;
+      left: 20px;
+      transform: rotate(-90deg);
+    }
   }
 
   .vertical-line {
     position: absolute;
     width: 0;
     height: 0;
-    border-left: 1px dashed rgba(255, 255, 255, .8);
-    // transform: translateX(200px);
+    border-left: .5px dashed #51d6a9;
+
+    .line-offset-value {
+      top: 20px;
+      left: 10px;
+    }
+  }
+
+  .line-offset-value {
+    position: absolute;
+    font-size: 12px;
+    color: #51d6a9;
+    cursor: default;
   }
 }

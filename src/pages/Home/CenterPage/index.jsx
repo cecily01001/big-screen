@@ -59,15 +59,15 @@ function CenterPage() {
     const horizontalRuler = horizontalRulerRef.current
     const verticalRuler = verticalRulerRef.current
     horizontalRuler.addEventListener('mousemove', handleMouseover0)
-    // horizontalRuler.addEventListener('mouseout', handleMouseout)
+    horizontalRuler.addEventListener('mouseout', handleMouseout)
     verticalRuler.addEventListener('mousemove', handleMouseover1)
-    // verticalRuler.addEventListener('mouseout', handleMouseout)
+    verticalRuler.addEventListener('mouseout', handleMouseout)
 
     return () => {
       horizontalRuler.removeEventListener('mousemove', handleMouseover0)
-      // horizontalRuler.removeEventListener('mouseout', handleMouseout)
+      horizontalRuler.removeEventListener('mouseout', handleMouseout)
       verticalRuler.removeEventListener('mousemove', handleMouseover1)
-      // verticalRuler.removeEventListener('mouseout', handleMouseout)
+      verticalRuler.removeEventListener('mouseout', handleMouseout)
     }
   }, [])
 
@@ -123,14 +123,18 @@ function CenterPage() {
 
   return (
     <div ref={rulerRef} className='ruler-container'>
+      {/* transform相对于top的性能更好，减少重绘与回流 */}
       <div className='horizontal-line' style={{ width: direction === 2 ? `${containerWidth}px` : '0px', transform: `translateY(${direction === 2 ? lineOffset : 0}px)` }}>
-        <div>111</div>
-      </div>
-      <div ref={horizontalRulerRef} className='horizontal-ruler'>
-        <Ruler width={1000} height={20} />
+      {/* <div className='horizontal-line' style={{ width: direction === 2 ? `${containerWidth}px` : '0px', top: `${direction === 2 ? lineOffset : 0}px` }}> */}
+        <div className='line-offset-value' style={{ visibility: direction === 2 ? 'visible' : 'hidden' }}>{lineOffset}</div>
       </div>
       <div className='vertical-line' style={{ height: direction === 1 ? `${containerHeight}px` : '0px', transform: `translateX(${direction === 1 ? lineOffset : 0}px)` }}>
-        <div>111</div>
+      {/* <div className='vertical-line' style={{ height: direction === 1 ? `${containerHeight}px` : '0px', left: `${direction === 1 ? lineOffset : 0}px` }}> */}
+        <div className='line-offset-value' style={{ visibility: direction === 1 ? 'visible' : 'hidden'}} >{lineOffset}</div>
+      </div>
+      {/* 横向指示线移到这个位置就正常了 */}
+      <div ref={horizontalRulerRef} className='horizontal-ruler'>
+        <Ruler width={1000} height={20} />
       </div>
       <div ref={verticalRulerRef} className='vertical-ruler'>
         <Ruler type="vertical" width={20} height={1000} />
