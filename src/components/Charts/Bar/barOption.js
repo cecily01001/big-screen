@@ -1,30 +1,48 @@
 const baroptions = {
     title: {
-        text: 'test',
+        text: '',
         textStyle: {
             color: '#ffffff'
         }
     },
     legend: {
         data: [
-            '3-11岁任务数',
-            '3-11岁全程接种量',
-            '60岁任务数',
-            '60岁全程接种量',
-            '80岁任务数',
-            '80岁全程接种量',
-            '完成率',
+            '图例',
         ],
+        textStyle: {
+            color: 'rgba(181, 179, 179, 1)'
+        }
+    },
+    grid: {
+        // width: '80%', 
+        // right: '10%',
+        // top: '10%', 
+        
     },
     xAxis: {
         type: 'category',
-        data: ['街道1', '街道2', '街道3', '街道4', '街道5', '街道6', '街道7'],
+        data: ['ex1', 'ex2', 'ex3', 'ex4', 'ex5', 'ex6', 'ex7'],
         axisLabel: {
-            color: 'yellow'
+            color: 'rgba(181, 179, 179, 1)',
+            rotate: 30
+        },
+        axisTick: {
+            show: false
         }
     },
     yAxis: [
-        { type: 'value' },
+        {
+            type: 'value',
+            splitLine: {
+                show: true,
+                lineStyle: {
+                    type: "dashed",
+                    width: 0.5,
+                    opacity: 0.4,
+                    color: ['#aaa', '#ddd']
+                }
+            }
+        },
 
     ],
     tooltip: {
@@ -42,10 +60,11 @@ const baroptions = {
     },
     series: [
         {
-            name: '3-11岁任务数',
+            name: '图例',
             data: [150, 230, 224, 218, 135, 147, 260],
             type: 'bar',
         },
     ],
+    animation: false,
 }
 export default baroptions;

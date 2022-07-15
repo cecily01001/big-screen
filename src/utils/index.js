@@ -1,7 +1,7 @@
 import chartList from '../pages/Home/LeftPage/data'
 
 export const getChartComp = (type) => {
-    return chartList[type].chart
+    return chartList[type].chart?chartList[type].chart:null
 }
 
 export const getChartNameList=()=>{

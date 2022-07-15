@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { nanoid } from '@reduxjs/toolkit';
 import { changeRight, clearBoxes } from '../../store/features/editorSlice';
 import './style.less';
+import { getEmptyImage } from 'react-dnd-html5-backend'
 
 
 const MyBar = props => {
@@ -26,7 +27,7 @@ const MyBar = props => {
     position: 'fixed', width: '100px', height: '160px', z_index: 1
   });
   // 选定之后的边框
-  const [border, setBorder] = useState({})
+  const [border, setBorder] = useState({border:'0.5px dashed rgba(0, 0, 0, 0)'})
 
   const chartRef = useRef();
   const chartContainerRef = useRef();
@@ -40,13 +41,13 @@ const MyBar = props => {
   let chartInstance = null;
 
 
-  const [{ }, drag] = useDrag(
+  const [{ }, drag, preview] = useDrag(
     () => ({
       type: 'trueEle',
       item: {
         id: key,
         chartType: chartType,
-        // config: config
+          
       },
       collect: monitor => ({
         isDragging: monitor.isDragging(),
@@ -56,6 +57,10 @@ const MyBar = props => {
       })
     })
   );
+  //取消拖动时的默认图片
+  useEffect(() => {
+    preview(getEmptyImage(), { captureDraggingState: true })
+  }, [])
 
   // echarts上面的左键点击事件
   const handleClick = () => {
@@ -64,18 +69,17 @@ const MyBar = props => {
     dispatch(
       changeRight({
         id: key,
-        chartType:chartType,
-        layer_name: 'test',
+        chartType: chartType,
+        layer_name: '',
         translate_x: left,
         translate_y: top,
         width: Number(chartEle.width.slice(0, -2)),
         height: Number(chartEle.height.slice(0, -2)),
         z_index: 1,
-        // config:config
       })
     );
     // 点击的时候出现白色框
-    setBorder({ border: '1px solid #fff' })
+    setBorder({ border: '0.5px dashed rgba(181, 179, 179, 1)' })
   };
 
 
@@ -90,7 +94,7 @@ const MyBar = props => {
     // 先显示才能捕捉到右键菜单Ref
     // 否则rightClickRef将为undefined
     setShow(true);
-    setBorder({ border: '1px solid #fff' })
+    setBorder({ border: '0.5px dashed rgba(181, 179, 179, 1)' })
     // 获得点击的位置
     let { clientX, clientY } = event;
     // 文档显示区的宽度
@@ -151,9 +155,9 @@ const MyBar = props => {
 
   // 点击非chart组件，让chart的白边消失
   const handleOtherPlaceClick = (event) => {
-    if (chartContainerRef.current && getComputedStyle(chartContainerRef.current).border == '1px solid rgba(0, 0, 0, 0)') return;
+    if (chartContainerRef.current && getComputedStyle(chartContainerRef.current).border == '1px dashed rgba(0, 0, 0, 0)') return;
     if (event.target.parentNode !== chartContainerRef.current) {
-      setBorder({})
+      setBorder({border:'0.5px dashed rgba(0, 0, 0, 0)'})
     }
   }
   // 滑动关闭右键菜单
@@ -169,7 +173,7 @@ const MyBar = props => {
     document.addEventListener('click', handleOtherPlaceClick, true);
     document.addEventListener('scroll', handleScroll, true);
     return () => {
-      document.removeEventListener('mousedown', handleOtherPlaceClick, true);
+      document.removeEventListener('mousedown', handleCancleMenuClick, true);
       document.removeEventListener('click', handleOtherPlaceClick, true);
       document.removeEventListener('scroll', handleScroll, true);
     }
