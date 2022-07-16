@@ -8,6 +8,7 @@ import { addBoxes, deleteBoxes } from '../../../store/features/editorSlice';
 import { getChartComp } from '../../../utils/index'
 import Ruler from '../../../components/Ruler/Ruler';
 import { useRef } from 'react';
+import { DraggableContainer, DraggableChild } from 'react-dragline'
 
 function CenterPage() {
   // const [boxes, setBoxes] = useState({});
@@ -136,6 +137,26 @@ function CenterPage() {
   const isActive = canDrop && isOver;
   // const transform=transform1?transform:''
   // console.log(transform)
+
+
+  const containerStyle = {
+    position: 'relative',
+    height: 600,
+    boxShadow: '0 0 5px 1px #CCC inset',
+    background: '#F5F8FA',
+    color: '#4A4A4A',
+    margin: 20,
+  }
+
+  const childStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    cursor: 'move',
+  }
+
+
   return (
     <div ref={rulerRef} className='ruler-container'>
       {/* transform相对于top的性能更好，减少重绘与回流 */}
@@ -156,7 +177,36 @@ function CenterPage() {
       </div>
       <div className='huabu' ref={drop} data-testid='dustbin'>
         {/* {isActive ? 'Release to drop' : 'Drag a box here'} */}
-        {Object.keys(boxes).map(key => {
+
+        <DraggableContainer style={{width: '100%', height: '100%'}}>
+          {Object.keys(boxes).map(key => {
+            // const Chart = boxes[key].chart
+            const chartType = boxes[key].chartType
+            const Chart = getChartComp(chartType)
+            // const config = boxes[key].config
+            const { left, top, width, height } = boxes[key];
+            const style = {
+              width: 300,
+              height: 260,
+              cursor: 'move',
+              border: '1px solid #fff',
+            }
+            const position = {
+              x: left,
+              y: top
+            }
+            return (
+              <DraggableChild key={key} defaultPosition={position}>
+                <div style={style} >
+                  {/* <MyBar key={key} chartType={chartType} id={key} left={left} top={top} width={width} height={height} handleDelete={handleDelete} > */}
+                    <Chart width={width} height={height} />
+                  {/* </MyBar> */}
+                </div>
+              </DraggableChild>
+            );
+          })}
+        </DraggableContainer>
+        {/* {Object.keys(boxes).map(key => {
           // const Chart = boxes[key].chart
           const chartType = boxes[key].chartType
           const Chart = getChartComp(chartType)
@@ -167,7 +217,7 @@ function CenterPage() {
               <Chart width={width} height={height} />
             </MyBar>
           );
-        })}
+        })} */}
       </div>
     </div>
   );

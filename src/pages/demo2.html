@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+      }
+
+      .main {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        box-sizing: border-box;
+      }
+
+      .drawer-container {
+        width: 100%;
+        height: 0;
+        position: fixed;
+        right: 0;
+        top: 0;
+      }
+
+      .drawer-content {
+        background-color: rgba(0, 0, 0, 0.1);
+        width: 200px;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        z-index: 99;
+        box-shadow: -6px 0 16px -8px #00000014, -9px 0 28px #0000000d,
+          -12px 0 48px 16px #00000008;
+        transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1),
+          box-shadow 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        transform: translateX(100%);
+      }
+
+      .mask {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-color: rgba(130, 130, 130, 0.49);
+        z-index: 9;
+        opacity: 0;
+        transition: opacity 0.3s linear, height 0s ease 0.3s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="btn">
+        <button type="button">open</button>
+        Some contents... Some contents... Some contents...
+      </div>
+      <div class="drawer-container">
+        <div class="drawer-content"></div>
+        <div class="mask"></div>
+      </div>
+    </div>
+    <script>
+      const container = document.querySelector('.drawer-container');
+      const btn = document.querySelector('.btn');
+      const mask = document.querySelector('.mask');
+      const drawer = document.querySelector('.drawer-content');
+
+      btn.addEventListener('click', function (e) {
+        console.log('btn');
+        drawer.style.transform = 'translateX(0)';
+        mask.style.opacity = 1;
+        container.style.height = '100%';
+      });
+
+      mask.addEventListener('click', e => {
+        e.stopPropagation();
+        console.log('mask');
+        mask.style.opacity = 0;
+        container.style.height = 0;
+        drawer.style.transform = 'translateX(100%)';
+      });
+
+      drawer.addEventListener('click', e => {
+        e.stopPropagation();
+        console.log('drawer');
+      });
+    </script>
+  </body>
+</html>
